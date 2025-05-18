@@ -9,7 +9,7 @@ export default function AuthLayout() {
     <View className='flex-1 bg-muted'>
       <AuthHeader />
 
-      <View className='flex-1 p-safe-offset-6'>
+      <View className='flex-1 p-6'>
         <Slot />
       </View>
     </View>
