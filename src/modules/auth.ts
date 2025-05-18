@@ -1,9 +1,9 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 import { removeAuthorizationHeader, setAuthorizationHeader } from "@/interfaces/sdk";
 import { ILoginResponse, login } from "@/interfaces/sdk/auth";
 
-import { queryClient } from "~/components/query-provider";
+import { queryClient, storage } from "~/components/query-provider";
 
 export const useLogin = ({
   onSuccess,
@@ -14,8 +14,8 @@ export const useLogin = ({
 } = {}) => useMutation({
   mutationFn: login,
   onSuccess: async (data: ILoginResponse) => {
+    storage.set("user", JSON.stringify(data));
     setAuthorizationHeader(data.token);
-    queryClient.setQueryData(["auth"], data);
     onSuccess && onSuccess?.(data);
   },
   onError: (error: unknown) => {
@@ -34,6 +34,7 @@ export const useLogout = ({
     removeAuthorizationHeader();
   },
   onSuccess: () => {
+    storage.clearAll();
     queryClient.clear();
     onSuccess && onSuccess?.();
   },

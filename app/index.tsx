@@ -1,7 +1,8 @@
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { Eye, EyeClosed } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
+import { useMMKVObject } from 'react-native-mmkv';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -12,6 +13,7 @@ import { useLogin } from '~/src/modules/auth';
 export default function Screen() {
   const router = useRouter()
   const { mutateAsync, status } = useLogin()
+  const [user] = useMMKVObject('user')
 
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -26,6 +28,10 @@ export default function Screen() {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  if (user) {
+    return <Redirect href='/posts' />
   }
 
   return (

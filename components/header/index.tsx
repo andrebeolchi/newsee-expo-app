@@ -2,8 +2,8 @@ import { useRouter } from 'expo-router';
 import { LucideLogOut } from 'lucide-react-native';
 import React from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
+import { useMMKVObject } from 'react-native-mmkv';
 
-import { queryClient } from '~/components/query-provider';
 import { Text } from '~/components/ui/text';
 import { InjectClassName } from '~/lib/icons/iconWithClassName';
 import { useLogout } from '~/src/modules/auth';
@@ -11,17 +11,18 @@ import { useLogout } from '~/src/modules/auth';
 export const greetings = () => {
   const hour = new Date().getHours();
 
+  if (hour < 6) return 'Boa madrugada,';
   if (hour < 12) return 'Bom dia,';
-  if (hour >= 12 && hour < 18) return 'Boa tarde,';
-  if (hour >= 18) return 'Boa noite,';
+  if (hour < 18) return 'Boa tarde,';
+  if (hour < 24) return 'Boa noite,';
 
   return 'Olá,';
 }
 
 export const AuthHeader = () => {
   const router = useRouter();
+  const [user] = useMMKVObject('user');
 
-  const user = queryClient.getQueryData(['auth']);
   const { mutateAsync, status } = useLogout({
     onSuccess: () => {
       router.push('/');
