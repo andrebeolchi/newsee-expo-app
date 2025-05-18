@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
+import { ReactNode } from 'react';
 
 export function iconWithClassName(icon: LucideIcon) {
   cssInterop(icon, {
@@ -11,4 +12,18 @@ export function iconWithClassName(icon: LucideIcon) {
       },
     },
   });
+}
+
+export const InjectClassName = ({ children }: { children: ReactNode}) => {
+  cssInterop(children, {
+    className: {
+      target: 'style',
+      nativeStyleToProp: {
+        color: true,
+        opacity: true,
+      },
+    },
+  })
+
+  return children;
 }

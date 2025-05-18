@@ -1,95 +1,99 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import Animated, { FadeInUp, FadeOutDown, LayoutAnimationConfig } from 'react-native-reanimated';
-import { Info } from '~/lib/icons/Info';
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { useRouter } from 'expo-router';
+import { Eye, EyeClosed } from 'lucide-react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 import { Button } from '~/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '~/components/ui/card';
-import { Progress } from '~/components/ui/progress';
+import { Input } from '~/components/ui/input';
+import { Label } from '~/components/ui/label';
 import { Text } from '~/components/ui/text';
-import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip';
-
-const GITHUB_AVATAR_URI =
-  'https://i.pinimg.com/originals/ef/a2/8d/efa28d18a04e7fa40ed49eeb0ab660db.jpg';
+import { InjectClassName } from '~/lib/icons/iconWithClassName';
+import { useAuth, useLogin } from '~/src/modules/auth';
 
 export default function Screen() {
-  const [progress, setProgress] = React.useState(78);
+  const router = useRouter()
+  const { data } = useAuth()
+  const { mutateAsync, status } = useLogin()
 
-  function updateProgressValue() {
-    setProgress(Math.floor(Math.random() * 100));
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+
+  const [hidePassword, setHidePassword] = useState<boolean>(true)
+  const HidePasswordIcon = hidePassword ? Eye : EyeClosed
+
+  const handleLogin = async () => {
+    try {
+      await mutateAsync({ username, password })
+      router.push('/posts')
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  useEffect(() => {
+    if (data) {
+      router.push('/posts')
+    }
+  }, []);
+
   return (
-    <View className='flex-1 justify-center items-center gap-5 p-6 bg-secondary/30'>
-      <Card className='w-full max-w-sm p-6 rounded-2xl'>
-        <CardHeader className='items-center'>
-          <Avatar alt="Rick Sanchez's Avatar" className='w-24 h-24'>
-            <AvatarImage source={{ uri: GITHUB_AVATAR_URI }} />
-            <AvatarFallback>
-              <Text>RS</Text>
-            </AvatarFallback>
-          </Avatar>
-          <View className='p-3' />
-          <CardTitle className='pb-2 text-center'>Rick Sanchez</CardTitle>
-          <View className='flex-row'>
-            <CardDescription className='text-base font-semibold'>Scientist</CardDescription>
-            <Tooltip delayDuration={150}>
-              <TooltipTrigger className='px-2 pb-0.5 active:opacity-50'>
-                <Info size={14} strokeWidth={2.5} className='w-4 h-4 text-foreground/70' />
-              </TooltipTrigger>
-              <TooltipContent className='py-2 px-4 shadow'>
-                <Text className='native:text-lg'>Freelance</Text>
-              </TooltipContent>
-            </Tooltip>
+    <View className='flex-1 items-center justify-center gap-6 p-safe-offset-6 bg-muted'>
+      <View className='bg-background border border-border rounded-lg p-6 gap-9'>
+        <View>
+          <Text className='text-3xl font-bold text-primary'>
+            Bem-vindo ao NewSee!
+          </Text>
+          <Text className='text-lg text-muted-foreground'>
+            Acompanhe as últimas postagens de seus professores
+          </Text>
+        </View>
+
+        <View className='gap-3'>
+          <View className='gap-1'>
+            <Label>Nome de usuário</Label>
+            <Input autoCapitalize='none' onChangeText={setUsername} />
           </View>
-        </CardHeader>
-        <CardContent>
-          <View className='flex-row justify-around gap-3'>
-            <View className='items-center'>
-              <Text className='text-sm text-muted-foreground'>Dimension</Text>
-              <Text className='text-xl font-semibold'>C-137</Text>
-            </View>
-            <View className='items-center'>
-              <Text className='text-sm text-muted-foreground'>Age</Text>
-              <Text className='text-xl font-semibold'>70</Text>
-            </View>
-            <View className='items-center'>
-              <Text className='text-sm text-muted-foreground'>Species</Text>
-              <Text className='text-xl font-semibold'>Human</Text>
-            </View>
-          </View>
-        </CardContent>
-        <CardFooter className='flex-col gap-3 pb-0'>
-          <View className='flex-row items-center overflow-hidden'>
-            <Text className='text-sm text-muted-foreground'>Productivity:</Text>
-            <LayoutAnimationConfig skipEntering>
-              <Animated.View
-                key={progress}
-                entering={FadeInUp}
-                exiting={FadeOutDown}
-                className='w-11 items-center'
+
+          <View className='gap-1'>
+            <Label>Senha</Label>
+
+            <View>
+              <Input
+                onChangeText={setPassword}
+                autoCapitalize='none'
+                secureTextEntry={hidePassword}
+                className='pr-12'
+              />
+              <Pressable
+                className='absolute right-4 top-1/2 -translate-y-1/2'
+                onPress={() => setHidePassword(!hidePassword)}
               >
-                <Text className='text-sm font-bold text-sky-600'>{progress}%</Text>
-              </Animated.View>
-            </LayoutAnimationConfig>
+                <InjectClassName>
+                  <HidePasswordIcon className='text-muted-foreground' size={24} />
+                </InjectClassName>
+              </Pressable>
+            </View>
           </View>
-          <Progress value={progress} className='h-2' indicatorClassName='bg-sky-600' />
-          <View />
-          <Button
-            variant='outline'
-            className='shadow shadow-foreground/5'
-            onPress={updateProgressValue}
-          >
-            <Text>Update</Text>
-          </Button>
-        </CardFooter>
-      </Card>
+        </View>
+
+        <Button
+          onPress={handleLogin}
+          disabled={!username || !password || status === 'pending'}
+        >
+          {status === 'pending' && (
+            <InjectClassName>
+              <ActivityIndicator
+                size={16}
+              />
+            </InjectClassName>
+          )}
+
+          {status !== 'pending' && (
+            <Text>
+              Entrar
+            </Text>
+          )}
+        </Button>
+      </View>
     </View>
   );
 }
