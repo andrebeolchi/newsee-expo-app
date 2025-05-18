@@ -5,7 +5,7 @@ import { Text } from '~/components/ui/text';
 import { useGetPosts } from '~/modules/posts';
 
 export default function PostsScreen() {
-  const { data } = useGetPosts();
+  const { data, refetch, status } = useGetPosts();
 
   return (
     <View className='flex-1 gap-6'>
@@ -15,6 +15,8 @@ export default function PostsScreen() {
 
       <FlatList
         className='flex-1'
+        refreshing={status === "pending"}
+        onRefresh={refetch}
         data={data}
         keyExtractor={(item) => `${item.id}`}
         renderItem={({ item }) => (
