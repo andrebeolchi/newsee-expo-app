@@ -1,4 +1,11 @@
+enum UserRole {
+  student,
+  teacher,
+}
+
 export interface IUser {
+  id: string,
+  role: UserRole,
   username: string,
   fullName: string,
   email: string,

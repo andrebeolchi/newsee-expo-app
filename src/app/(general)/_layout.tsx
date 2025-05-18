@@ -6,7 +6,7 @@ import { AuthHeader } from '~/components/header';
 
 export default function AuthLayout() {
   return (
-    <View className='flex-1 bg-muted'>
+    <View className='flex-1 bg-muted pb-safe'>
       <AuthHeader />
 
       <View className='flex-1 p-6'>
