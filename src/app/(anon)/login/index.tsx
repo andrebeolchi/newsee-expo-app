@@ -1,15 +1,15 @@
-import { Redirect, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { Eye, EyeClosed } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 import { useMMKVObject } from 'react-native-mmkv';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Text } from '@/components/ui/text';
-import { InjectClassName } from '@/lib/icons/iconWithClassName';
-import { useLogin } from '@/modules/auth';
+import { Button } from '~/components/ui/button';
+import { Input } from '~/components/ui/input';
+import { Label } from '~/components/ui/label';
+import { Text } from '~/components/ui/text';
+import { InjectClassName } from '~/lib/icons/iconWithClassName';
+import { useLogin } from '~/modules/auth';
 
 export default function LoginScreen() {
   const router = useRouter()

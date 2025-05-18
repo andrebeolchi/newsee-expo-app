@@ -1,4 +1,4 @@
-import '@/global.css';
+import '~/global.css';
 
 import { DarkTheme, DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
@@ -6,10 +6,10 @@ import { Slot } from 'expo-router';
 import * as React from 'react';
 import { Platform } from 'react-native';
 
-import { QueryProvider } from '@/components/query-provider';
-import { setAndroidNavigationBar } from '@/lib/android-navigation-bar';
-import { NAV_THEME } from '@/lib/constants';
-import { useColorScheme } from '@/lib/use-color-scheme';
+import { QueryProvider } from '~/components/query-provider';
+import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
+import { NAV_THEME } from '~/lib/constants';
+import { useColorScheme } from '~/lib/use-color-scheme';
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,

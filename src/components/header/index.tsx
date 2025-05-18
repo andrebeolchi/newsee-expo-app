@@ -4,10 +4,10 @@ import React from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 import { useMMKVObject } from 'react-native-mmkv';
 
-import { Text } from '@/components/ui/text';
-import { InjectClassName } from '@/lib/icons/iconWithClassName';
-import { useLogout } from '@/modules/auth';
-import { IAuthUser } from '~/src/models/user';
+import { Text } from '~/components/ui/text';
+import { InjectClassName } from '~/lib/icons/iconWithClassName';
+import { IAuthUser } from '~/models/users';
+import { useLogout } from '~/modules/auth';
 
 export const greetings = () => {
   const hour = new Date().getHours();

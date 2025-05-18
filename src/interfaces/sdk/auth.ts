@@ -1,4 +1,4 @@
-import { IAuthUser } from "~/src/models/user";
+import { IAuthUser } from "~/models/users";
 import { fetch } from ".";
 
 export interface ILoginPayload {

@@ -1,10 +1,10 @@
-import { setAndroidNavigationBar } from '@/lib/android-navigation-bar';
-import { MoonStar } from '@/lib/icons/MoonStar';
-import { Sun } from '@/lib/icons/Sun';
-import { useColorScheme } from '@/lib/use-color-scheme';
-import { cn } from '@/lib/utils';
 import React from 'react';
 import { Pressable, View } from 'react-native';
+import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
+import { MoonStar } from '~/lib/icons/MoonStar';
+import { Sun } from '~/lib/icons/Sun';
+import { useColorScheme } from '~/lib/use-color-scheme';
+import { cn } from '~/lib/utils';
 
 export function ThemeToggle() {
   const { isDarkColorScheme, setColorScheme } = useColorScheme();
