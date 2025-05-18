@@ -18,3 +18,13 @@ export const getPosts = async ({ search }: IGetPostsPayload): Promise<IGetPostsR
 
   return data;
 }
+
+export type IGetPostByIdPayload = Pick<IPost, "id">;
+
+export type IGetPostByIdResponse = IPost;
+
+export const getPostById = async ({ id }: IGetPostByIdPayload): Promise<IGetPostByIdResponse> => {
+  const { data } = await fetch.get(`/posts/${id}`);
+
+  return data;
+}

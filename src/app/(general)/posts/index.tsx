@@ -1,10 +1,11 @@
+import dayjs from 'dayjs';
 import { useRouter } from 'expo-router';
 import { LucideEdit, LucideGraduationCap, LucideShieldUser, LucideUsers, LucideX } from 'lucide-react-native';
-import React, { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import React from 'react';
+import { FlatList, Pressable, View } from 'react-native';
 import { useMMKVObject } from 'react-native-mmkv';
 import { Fab } from '~/components/fab';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
 import { Text } from '~/components/ui/text';
 import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/use-color-scheme';
@@ -16,8 +17,6 @@ export default function PostsScreen() {
   const { colorScheme } = useColorScheme()
   const [user] = useMMKVObject<IAuthUser>('user');
   const { data, refetch, status } = useGetPosts();
-
-  const [fabOpen, setFabOpen] = useState<boolean>(false)
 
   return (
     <View className='flex-1 gap-6'>
@@ -32,17 +31,34 @@ export default function PostsScreen() {
         data={data}
         keyExtractor={(item) => `${item.id}`}
         renderItem={({ item }) => (
-          <Card>
-            <CardHeader>
-              <CardTitle>{item.title}</CardTitle>
-            </CardHeader>
+          <Pressable
+            onPress={() => router.push(`/posts/${item.id}`)}
+            className='group/card'
+          >
+            <Card className='group-active/card:bg-muted'>
+              <CardHeader>
+                <CardTitle>{item.title}</CardTitle>
+              </CardHeader>
 
-            <CardContent>
-              <CardDescription numberOfLines={1}>
-                {item.content}
-              </CardDescription>
-            </CardContent>
-          </Card>
+              <CardContent>
+                <CardDescription numberOfLines={1}>
+                  {item.content}
+                </CardDescription>
+              </CardContent>
+
+              <CardFooter>
+                <View>
+                  <Text className='text-sm text-muted-foreground'>
+                    Postado por {item.author.fullName},
+                  </Text>
+
+                  <Text className='text-sm text-muted-foreground'>
+                    {dayjs(item.createdAt).format('LLL')}
+                  </Text>
+                </View>
+              </CardFooter>
+            </Card>
+          </Pressable>
         )}
       />
 
