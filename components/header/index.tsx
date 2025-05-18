@@ -4,8 +4,8 @@ import React from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 import { useMMKVObject } from 'react-native-mmkv';
 
+import { InjectClassName } from '@/lib/icons/iconWithClassName';
 import { Text } from '~/components/ui/text';
-import { InjectClassName } from '~/lib/icons/iconWithClassName';
 import { useLogout } from '~/src/modules/auth';
 
 export const greetings = () => {

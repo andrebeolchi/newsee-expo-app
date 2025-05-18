@@ -1,8 +1,8 @@
+import { cn } from '@/lib/utils';
 import * as Slot from '@rn-primitives/slot';
 import type { SlottableViewProps } from '@rn-primitives/types';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { View } from 'react-native';
-import { cn } from '~/lib/utils';
 import { TextClassContext } from '~/components/ui/text';
 
 const badgeVariants = cva(
@@ -49,3 +49,4 @@ function Badge({ className, variant, asChild, ...props }: BadgeProps) {
 
 export { Badge, badgeTextVariants, badgeVariants };
 export type { BadgeProps };
+
