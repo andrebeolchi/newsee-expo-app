@@ -1,3 +1,4 @@
+import { IAuthUser } from "~/src/models/user";
 import { fetch } from ".";
 
 export interface ILoginPayload {
@@ -5,9 +6,7 @@ export interface ILoginPayload {
   password: string;
 }
 
-export interface ILoginResponse {
-  token: string;
-}
+export type ILoginResponse = IAuthUser;
 
 export const login = async ({ username, password }: ILoginPayload): Promise<ILoginResponse> => {
   const { data } = await fetch.post("/sign-in", {

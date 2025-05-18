@@ -7,7 +7,7 @@ import { useMMKVObject } from 'react-native-mmkv';
 import { Text } from '@/components/ui/text';
 import { InjectClassName } from '@/lib/icons/iconWithClassName';
 import { useLogout } from '@/modules/auth';
-import { AuthUser } from '~/src/models/user';
+import { IAuthUser } from '~/src/models/user';
 
 export const greetings = () => {
   const hour = new Date().getHours();
@@ -22,7 +22,7 @@ export const greetings = () => {
 
 export const AuthHeader = () => {
   const router = useRouter();
-  const [user] = useMMKVObject<AuthUser>('user');
+  const [user] = useMMKVObject<IAuthUser>('user');
 
   const { mutateAsync, status } = useLogout({
     onSuccess: () => {

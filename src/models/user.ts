@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
   username: string,
   fullName: string,
   email: string,
@@ -7,4 +7,4 @@ export interface User {
   updatedAt: Date
 }
 
-export interface AuthUser extends User { token: string }
+export interface IAuthUser extends IUser { token: string }
