@@ -2,16 +2,16 @@ import { useRouter } from 'expo-router';
 import { Eye, EyeClosed } from 'lucide-react-native';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
+import { queryClient } from '~/components/query-provider';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { Text } from '~/components/ui/text';
 import { InjectClassName } from '~/lib/icons/iconWithClassName';
-import { useAuth, useLogin } from '~/src/modules/auth';
+import { useLogin } from '~/src/modules/auth';
 
 export default function Screen() {
   const router = useRouter()
-  const { data } = useAuth()
   const { mutateAsync, status } = useLogin()
 
   const [username, setUsername] = useState<string>('')
@@ -30,9 +30,8 @@ export default function Screen() {
   }
 
   useEffect(() => {
-    if (data) {
-      router.push('/posts')
-    }
+    const user = queryClient.getQueryData(['auth'])
+    user?.token && router.push('/posts')
   }, []);
 
   return (
