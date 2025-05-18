@@ -5,8 +5,8 @@ import { ActivityIndicator, Pressable, View } from 'react-native';
 import { useMMKVObject } from 'react-native-mmkv';
 
 import { InjectClassName } from '@/lib/icons/iconWithClassName';
-import { Text } from '~/components/ui/text';
-import { useLogout } from '~/src/modules/auth';
+import { useLogout } from '@/modules/auth';
+import { Text } from '@/components/ui/text';
 
 export const greetings = () => {
   const hour = new Date().getHours();
@@ -41,7 +41,7 @@ export const AuthHeader = () => {
   }
 
   return (
-    <View className='flex-row items-center justify-center bg-background border-b border-b-border p-6'>
+    <View className='flex-row items-center justify-center bg-background border-b border-b-border pt-safe-offset-6 p-6'>
       <View className='flex-1'>
         <Text className='text-sm'>
           {greetings()}

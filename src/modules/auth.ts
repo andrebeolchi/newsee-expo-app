@@ -1,9 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 
+import { queryClient, storage } from "@/components/query-provider";
 import { removeAuthorizationHeader, setAuthorizationHeader } from "@/interfaces/sdk";
 import { ILoginResponse, login } from "@/interfaces/sdk/auth";
-
-import { queryClient, storage } from "~/components/query-provider";
 
 export const useLogin = ({
   onSuccess,
