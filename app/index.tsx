@@ -42,7 +42,7 @@ export default function Screen() {
 
         <View className='gap-3'>
           <View className='gap-1'>
-            <Label>Nome de usuário</Label>
+            <Label>Usuário</Label>
             <Input autoCapitalize='none' onChangeText={setUsername} />
           </View>
 
