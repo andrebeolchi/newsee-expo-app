@@ -1,8 +1,7 @@
 import { useRouter } from 'expo-router';
 import { Eye, EyeClosed } from 'lucide-react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
-import { queryClient } from '~/components/query-provider';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -28,11 +27,6 @@ export default function Screen() {
       console.log(error)
     }
   }
-
-  useEffect(() => {
-    const user = queryClient.getQueryData(['auth'])
-    user?.token && router.push('/posts')
-  }, []);
 
   return (
     <View className='flex-1 items-center justify-center gap-6 p-safe-offset-6 bg-muted'>

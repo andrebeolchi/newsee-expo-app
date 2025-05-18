@@ -1,10 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
+import { Text } from '~/components/ui/text';
 
 export default function PostsScreen() {
   return (
-    <View className='flex-1 items-center justify-center p-safe-offset-6 bg-muted'>
-      
+    <View>
+      <Text>
+        Posts Screen
+      </Text>
     </View>
   );
 }

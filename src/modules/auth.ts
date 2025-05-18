@@ -23,8 +23,21 @@ export const useLogin = ({
   },
 })
 
-export const useLogout = () => useMutation({
+export const useLogout = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess?: () => void;
+  onError?: (error: unknown) => void;
+}) => useMutation({
   mutationFn: async () => {
     removeAuthorizationHeader();
+  },
+  onSuccess: () => {
+    queryClient.clear();
+    onSuccess && onSuccess?.();
+  },
+  onError: (error: unknown) => {
+    onError && onError?.(error);
   },
 })
