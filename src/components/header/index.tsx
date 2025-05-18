@@ -4,9 +4,10 @@ import React from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 import { useMMKVObject } from 'react-native-mmkv';
 
+import { Text } from '@/components/ui/text';
 import { InjectClassName } from '@/lib/icons/iconWithClassName';
 import { useLogout } from '@/modules/auth';
-import { Text } from '@/components/ui/text';
+import { AuthUser } from '~/src/models/user';
 
 export const greetings = () => {
   const hour = new Date().getHours();
@@ -21,7 +22,7 @@ export const greetings = () => {
 
 export const AuthHeader = () => {
   const router = useRouter();
-  const [user] = useMMKVObject('user');
+  const [user] = useMMKVObject<AuthUser>('user');
 
   const { mutateAsync, status } = useLogout({
     onSuccess: () => {
