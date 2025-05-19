@@ -26,7 +26,7 @@ export const AuthHeader = () => {
 
   const { mutateAsync, status } = useLogout({
     onSuccess: () => {
-      router.push('/');
+      router.navigate('/');
     },
     onError: (error) => {
       console.log(error);

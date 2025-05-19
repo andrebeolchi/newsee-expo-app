@@ -65,7 +65,7 @@ export default function TeachersScreen() {
         )}
       />
 
-      <Fab onPress={() => router.push('/teachers/new')}>
+      <Fab onPress={() => router.navigate('./new')}>
         <LucideEdit size={24} className='text-primary-foreground' />
       </Fab>
     </View>

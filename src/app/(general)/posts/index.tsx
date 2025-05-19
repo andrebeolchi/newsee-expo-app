@@ -76,7 +76,7 @@ export default function PostsScreen() {
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <Pressable
-            onPress={() => router.push(`/posts/${item.id}`)}
+            onPress={() => router.navigate(`/posts/${item.id}`)}
             className='group/card'
           >
             <Card className='group-active/card:bg-muted'>
@@ -150,15 +150,15 @@ export default function PostsScreen() {
           actions={[
             {
               icon: <LucideEdit size={24} className='text-primary' />,
-              onPress: () => router.push('/posts/new'),
+              onPress: () => router.navigate('./new'),
             },
             {
               icon: <LucideGraduationCap size={24} className='text-primary' />,
-              onPress: () => router.push('/students'),
+              onPress: () => router.navigate('/students'),
             },
             {
               icon: <LucideUsers size={24} className='text-primary' />,
-              onPress: () => router.push('/teachers'),
+              onPress: () => router.navigate('/teachers'),
             },
           ]}
         />

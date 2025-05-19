@@ -25,7 +25,7 @@ export default function LoginScreen() {
   const handleLogin = async () => {
     try {
       await mutateAsync({ username, password })
-      router.push('/posts')
+      router.navigate('/posts')
     } catch (error) {
       console.log(error)
     }
@@ -90,7 +90,7 @@ export default function LoginScreen() {
           </Button>
 
           <Button
-            onPress={() => router.push('/posts')}
+            onPress={() => router.navigate('/posts')}
             variant='secondary'
           >
             {status === 'pending' && (
