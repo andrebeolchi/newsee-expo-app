@@ -30,7 +30,7 @@ Requisitos funcionais
 - [X] Página de Listagem de professores
   - [X] Exibir uma lista de todos os professores cadastrados.
   - [X] Cada item terá um botão para editar o professor.
-  - [ ] Cada item terá um botão para excluir o professor.
+  - [X] Cada item terá um botão para excluir o professor.
 
 - [X] Página para Criação de alunos
   - [X] Formulário para que **professores** possam cadastrar outros alunos.
@@ -43,12 +43,12 @@ Requisitos funcionais
 - [X] Página de Listagem de alunos
   - [X] Exibir uma lista de todos os alunos cadastrados.
   - [X] Cada item terá um botão para editar o aluno.
-  - [ ] Cada item terá um botão para excluir o aluno.
+  - [X] Cada item terá um botão para excluir o aluno.
 
 - [X] Página Administrativa
   - [X] Exibir uma lista de todas as postagens
   - [X] Botão para editar cada post.
-  - [ ] Botão para excluir cada post.
+  - [X] Botão para excluir cada post.
 
 - [X] Página de Login
   - [X] Permitir que professores e alunos façam login no sistema.

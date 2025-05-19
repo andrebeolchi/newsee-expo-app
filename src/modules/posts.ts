@@ -49,7 +49,7 @@ export const useUpdatePost = ({
     queryClient.setQueryData(["posts", data.id], data);
     queryClient.setQueryData(["posts"], (oldData?: IPost[]) => {
       if (!oldData) return [data];
-      return oldData.map((post) => post.id === data.id ? data : post);
+      return [...oldData?.filter((post) => post.id !== data.id), data]
     })
 
     queryClient.invalidateQueries({ queryKey: ["posts"] });

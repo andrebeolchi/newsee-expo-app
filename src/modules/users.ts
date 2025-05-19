@@ -85,7 +85,7 @@ export const useUpdateStudent = ({
     queryClient.setQueryData(['users', data.id], data);
     queryClient.setQueryData(['students'], (oldData?: IUser[]) => {
       if (!oldData) return [data];
-      return [...oldData, data];
+      return [...oldData.filter((user) => user.id !== data.id), data];
     })
 
     queryClient.invalidateQueries({ queryKey: ['students'] });
@@ -136,7 +136,7 @@ export const useUpdateTeacher = ({
     queryClient.setQueryData(['users', data.id], data);
     queryClient.setQueryData(['teachers'], (oldData?: IUser[]) => {
       if (!oldData) return [data];
-      return [...oldData, data];
+      return [...oldData.filter((user) => user.id !== data.id), data];
     })
 
     queryClient.invalidateQueries({ queryKey: ['teachers'] });

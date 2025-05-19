@@ -16,7 +16,7 @@ const TextareaWithLabel = ({
   onChangeValue
 }: {
   title: string;
-  value: string;
+  value?: string;
   currentValue: string;
   onChangeValue: (value: string) => void;
 }) => (
@@ -45,12 +45,12 @@ const TextareaWithLabel = ({
 export default function PostScreen() {
   const router = useRouter();
   const localParams = useGlobalSearchParams() as { id: string };
-  const { data } = useGetPost(`${localParams.id}`);
+  const { data, status } = useGetPost(`${localParams.id}`);
 
-  const [title, setTitle] = useState<string>(data?.title || '');
-  const [content, setContent] = useState<string>(data?.content || '');
+  const [title, setTitle] = useState<string>('');
+  const [content, setContent] = useState<string>('');
 
-  const hasChanges = title !== data?.title || content !== data?.content;
+  const hasChanges = title || content;
 
   const { mutateAsync, isPending } = useUpdatePost({
     onSuccess: () => {
@@ -79,26 +79,34 @@ export default function PostScreen() {
         Editar postagem
       </Text>
 
-      <TextareaWithLabel
-        title='Título'
-        value={title}
-        currentValue={data?.title || ''}
-        onChangeValue={setTitle}
-      />
+      <View className='flex-1 gap-3'>
+        {status !== 'pending' && (
+          <>
+            <TextareaWithLabel
+              title='Título'
+              value={title || data?.title}
+              currentValue={data?.title || ''}
+              onChangeValue={setTitle}
+            />
 
-      <TextareaWithLabel
-        title='Conteúdo'
-        value={content}
-        currentValue={data?.content || ''}
-        onChangeValue={setContent}
-      />
+            <TextareaWithLabel
+              title='Conteúdo'
+              value={content || data?.content}
+              currentValue={data?.content || ''}
+              onChangeValue={setContent}
+            />
 
-      <View className='gap-1'>
-        <Label className='text-sm'>
-          Autor
-        </Label>
-        <Input value={data?.author?.fullName} editable={false} />
+            <View className='gap-1'>
+              <Label className='text-sm'>
+                Autor
+              </Label>
+              <Input value={data?.author?.fullName} editable={false} />
+            </View>
+          </>
+
+        )}
       </View>
+
 
       <Button
         disabled={!hasChanges || isPending}
@@ -107,7 +115,7 @@ export default function PostScreen() {
         {isPending && (
           <ActivityIndicator size={16} className='text-primary' />
         )}
-        
+
         {!isPending && <Text>Salvar alterações</Text>}
       </Button>
     </View>
