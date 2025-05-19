@@ -71,24 +71,41 @@ export default function LoginScreen() {
           </View>
         </View>
 
-        <Button
-          onPress={handleLogin}
-          disabled={!username || !password || status === 'pending'}
-        >
-          {status === 'pending' && (
-            <InjectClassName>
-              <ActivityIndicator
-                size={16}
-              />
-            </InjectClassName>
-          )}
+        <View className='gap-3'>
+          <Button
+            onPress={handleLogin}
+            disabled={!username || !password || status === 'pending'}
+          >
+            {status === 'pending' && (
+              <InjectClassName>
+                <ActivityIndicator size={16} />
+              </InjectClassName>
+            )}
 
-          {status !== 'pending' && (
-            <Text>
-              Entrar
-            </Text>
-          )}
-        </Button>
+            {status !== 'pending' && (
+              <Text>
+                Entrar
+              </Text>
+            )}
+          </Button>
+
+          <Button
+            onPress={() => router.push('/posts')}
+            variant='secondary'
+          >
+            {status === 'pending' && (
+              <InjectClassName>
+                <ActivityIndicator size={16} />
+              </InjectClassName>
+            )}
+
+            {status !== 'pending' && (
+              <Text>
+                Entrar como convidado
+              </Text>
+            )}
+          </Button>
+        </View>
       </View>
     </View>
   );

@@ -46,7 +46,7 @@ Requisitos funcionais
 - [X] Página Administrativa
   - [X] Exibir uma lista de todas as postagens, com opções para editar e excluir cada post.
 
-- [ ] Página de Login
+- [X] Página de Login
   - [X] Permitir que professores e alunos façam login no sistema.
-  - [ ] Permitir que alunos entre de modo anônimo.
+  - [X] Permitir que alunos entre de modo anônimo.
 

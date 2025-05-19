@@ -1,13 +1,13 @@
 import { useRouter } from 'expo-router';
-import { LucideLogOut } from 'lucide-react-native';
+import { LucideLogIn, LucideLogOut } from 'lucide-react-native';
 import React from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 import { useMMKVObject } from 'react-native-mmkv';
 
-import { useLogout } from '~/modules/auth';
 import { Text } from '~/components/ui/text';
 import { InjectClassName } from '~/lib/icons/iconWithClassName';
 import { IAuthUser } from '~/models/users';
+import { useLogout } from '~/modules/auth';
 
 export const greetings = () => {
   const hour = new Date().getHours();
@@ -49,7 +49,7 @@ export const AuthHeader = () => {
         </Text>
 
         <Text className='font-bold' numberOfLines={1}>
-          {user?.fullName}
+          {user?.fullName ?? 'Visitante'}
         </Text>
       </View>
 
@@ -64,7 +64,8 @@ export const AuthHeader = () => {
         )}
         {status !== 'pending' && (
           <InjectClassName>
-            <LucideLogOut size={20} className='text-primary' />
+            {user?.id && <LucideLogOut size={20} className='text-primary' />}
+            {!user?.id && <LucideLogIn size={20} className='text-primary' />}
           </InjectClassName>
         )}
       </Pressable>
