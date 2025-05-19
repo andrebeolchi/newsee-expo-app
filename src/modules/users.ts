@@ -16,7 +16,7 @@ export const useDeleteUser = ({
 }: {
   onSuccess?: (data: IUser) => void;
   onError?: (error: unknown) => void;
-}) => useMutation({
+} = {}) => useMutation({
   mutationFn: (id: string) => deleteUser({ id }),
   onSuccess: (data) => {
     queryClient.setQueryData(['users', data.id], data);
