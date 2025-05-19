@@ -6,7 +6,7 @@
     "dev": "expo start -c --dev-client",
     "dev:web": "expo start -c --web",
     "dev:android": "expo start -c --android",
-    "android": "expo run:ios",
+    "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start -c --web",
     "clean": "rm -rf .expo node_modules",
