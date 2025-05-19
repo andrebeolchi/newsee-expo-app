@@ -1,16 +1,54 @@
-# Starter base
+Requisitos funcionais
 
-A starting point to help you set up your project quickly and use the common components provided by `react-native-reusables`. The idea is to make it easier for you to get started.
+- [X] Pagina Principal Lista de Posts
+  - [X] Exibir uma lista de todos os posts disponíveis.
+  - [X] Cada item da lista deve mostrar o título, autor e uma breve descrição do post.
+  - [ ] Incluir um campo de busca para filtrar posts por palavras-chave.
 
-## Features
+- [X] Página de Leitura de Post
+  - [X] Exibir o conteúdo completo de um post selecionado.
+  - [ ] Permitir comentários nos posts (opcional).
 
-- NativeWind v4
-- Dark and light mode
-  - Android Navigation Bar matches mode
-  - Persistent mode
-- Common components
-  - ThemeToggle, Avatar, Button, Card, Progress, Text, Tooltip
+- [X] Página de Criação de Post
+  - [X] Formulário para que **professores** criar um novo post.
+  - [X] Campos obrigatórios: título, conteúdo e autor.
+  - [X] Botão para enviar o post ao servidor.
 
-<img src="https://github.com/mrzachnugent/react-native-reusables/assets/63797719/42c94108-38a7-498b-9c70-18640420f1bc"
-     alt="starter-base-template"
-     style="width:270px;" />
+- [X] Página de Edição de Post
+  - [X] Formulário para que **professores** possam editar postagens existentes.
+  - [X] Carregar os dados atuais do post para edição.
+  - [X] Botão para salvar as alterações.
+
+- [ ] Página para Criação de professores
+  - [ ] Formulário para que **professores** possam cadastrar outros professores.
+  - [ ] Botão para enviar o post ao servidor.
+
+- [ ] Página de Edição de professores
+  - [ ] Formulário para que professores possam editar docentes já
+  cadastrados.
+  - [ ] Botão para salvar as alterações.
+
+- [ ] Página de Listagem de professores
+  - [ ] Exibir uma lista de todos os professores cadastrados.
+  - [ ] Cada item terá um botão para editar e excluir o professor.
+
+- [ ] Página para Criação de alunos
+  - [ ] Formulário para que **professores** possam cadastrar outros alunos.
+  - [ ] Botão para enviar o post ao servidor.
+
+- [ ] Página de Edição de alunos
+  - [ ] Formulário para que alunos possam editar docentes já
+  cadastrados.
+  - [ ] Botão para salvar as alterações.
+
+- [ ] Página de Listagem de alunos
+  - [ ] Exibir uma lista de todos os alunos cadastrados.
+  - [ ] Cada item terá um botão para editar e excluir o professor.
+
+- [ ] Página Administrativa
+  - [X] Exibir uma lista de todas as postagens, com opções para editar e excluir cada post.
+
+- [ ] Página de Login
+  - [X] Permitir que professores e alunos façam login no sistema.
+  - [ ] Permitir que alunos entre de modo anônimo.
+
