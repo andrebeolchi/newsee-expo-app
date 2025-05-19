@@ -150,7 +150,7 @@ export default function PostsScreen() {
           actions={[
             {
               icon: <LucideEdit size={24} className='text-primary' />,
-              onPress: () => router.navigate('./new'),
+              onPress: () => router.navigate('/posts/new'),
             },
             {
               icon: <LucideGraduationCap size={24} className='text-primary' />,

@@ -9,7 +9,7 @@ export default function GeneralLayout() {
   const [user] = useMMKVObject('user')
 
   useEffect(() => {
-    setAuthorizationHeader(user?.token);
+    user?.token && setAuthorizationHeader(user?.token);
   }, []);
 
   if (!user) {
