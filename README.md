@@ -19,29 +19,29 @@ Requisitos funcionais
   - [X] Carregar os dados atuais do post para edição.
   - [X] Botão para salvar as alterações.
 
-- [ ] Página para Criação de professores
-  - [ ] Formulário para que **professores** possam cadastrar outros professores.
-  - [ ] Botão para enviar o post ao servidor.
+- [X] Página para Criação de professores
+  - [X] Formulário para que **professores** possam cadastrar outros professores.
+  - [X] Botão para enviar o post ao servidor.
 
 - [ ] Página de Edição de professores
   - [ ] Formulário para que professores possam editar docentes já cadastrados.
   - [ ] Botão para salvar as alterações.
 
-- [ ] Página de Listagem de professores
-  - [ ] Exibir uma lista de todos os professores cadastrados.
+- [X] Página de Listagem de professores
+  - [X] Exibir uma lista de todos os professores cadastrados.
   - [ ] Cada item terá um botão para editar e excluir o professor.
 
-- [ ] Página para Criação de alunos
-  - [ ] Formulário para que **professores** possam cadastrar outros alunos.
-  - [ ] Botão para enviar o post ao servidor.
+- [X] Página para Criação de alunos
+  - [X] Formulário para que **professores** possam cadastrar outros alunos.
+  - [X] Botão para enviar o post ao servidor.
 
 - [ ] Página de Edição de alunos
   - [ ] Formulário para que alunos possam editar docentes já cadastrados.
   - [ ] Botão para salvar as alterações.
 
-- [ ] Página de Listagem de alunos
-  - [ ] Exibir uma lista de todos os alunos cadastrados.
-  - [ ] Cada item terá um botão para editar e excluir o professor.
+- [X] Página de Listagem de alunos
+  - [X] Exibir uma lista de todos os alunos cadastrados.
+  - [ ] Cada item terá um botão para editar e excluir o aluno.
 
 - [X] Página Administrativa
   - [X] Exibir uma lista de todas as postagens
