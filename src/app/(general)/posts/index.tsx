@@ -4,20 +4,28 @@ import { LucideEdit, LucideGraduationCap, LucideSearch, LucideSearchX, LucideShi
 import React, { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { useMMKVObject } from 'react-native-mmkv';
-import { Fab } from '~/components/fab';
+import { FabGroup } from '~/components/fab';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
 import { Input } from '~/components/ui/input';
 import { Text } from '~/components/ui/text';
-import { NAV_THEME } from '~/lib/constants';
-import { useColorScheme } from '~/lib/use-color-scheme';
+import { iconWithClassName } from '~/lib/icons/iconWithClassName';
 import useDebounce from '~/lib/use-debounce';
 import { IAuthUser } from '~/models/users';
 import { useGetPosts } from '~/modules/posts';
 
+[
+  LucideShieldUser,
+  LucideX,
+  LucideEdit,
+  LucideGraduationCap,
+  LucideUsers,
+  LucideSearchX,
+  LucideSearch
+].forEach(iconWithClassName)
+
 export default function PostsScreen() {
   const router = useRouter();
-  const { colorScheme } = useColorScheme()
   const [user] = useMMKVObject<IAuthUser>('user');
 
   const [showSearch, setShowSearch] = useState<boolean>(false)
@@ -33,8 +41,8 @@ export default function PostsScreen() {
         </Text>
 
         <Pressable onPress={() => setShowSearch(!showSearch)}>
-          {showSearch && <LucideSearchX size={24} />}
-          {!showSearch && <LucideSearch size={24} />}
+          {showSearch && <LucideSearchX size={24} className='text-primary' />}
+          {!showSearch && <LucideSearch size={24} className='text-primary' />}
         </Pressable>
       </View>
 
@@ -52,7 +60,7 @@ export default function PostsScreen() {
               className='absolute right-4 top-1/2 -translate-y-1/2'
               onPress={() => setSearch('')}
             >
-              <LucideX size={16} />
+              <LucideX size={16} className='text-primary' />
             </Pressable>
           )}
         </View>
@@ -135,28 +143,26 @@ export default function PostsScreen() {
         )}
       />
 
-      {
-        user?.role === 'teacher' && (
-          <Fab
-            iconClosed={<LucideShieldUser size={32} color={NAV_THEME[colorScheme].background} />}
-            iconOpened={<LucideX size={32} color={NAV_THEME[colorScheme].background} />}
-            actions={[
-              {
-                icon: <LucideEdit size={24} />,
-                onPress: () => router.push('/posts/new'),
-              },
-              {
-                icon: <LucideGraduationCap size={24} />,
-                onPress: () => router.push('/students'),
-              },
-              {
-                icon: <LucideUsers size={24} />,
-                onPress: () => router.push('/teachers'),
-              },
-            ]}
-          />
-        )
-      }
+      {user?.role === 'teacher' && (
+        <FabGroup
+          iconClosed={<LucideShieldUser size={32} className='text-primary-foreground' />}
+          iconOpened={<LucideX size={32} className='text-primary-foreground' />}
+          actions={[
+            {
+              icon: <LucideEdit size={24} className='text-primary' />,
+              onPress: () => router.push('/posts/new'),
+            },
+            {
+              icon: <LucideGraduationCap size={24} className='text-primary' />,
+              onPress: () => router.push('/students'),
+            },
+            {
+              icon: <LucideUsers size={24} className='text-primary' />,
+              onPress: () => router.push('/teachers'),
+            },
+          ]}
+        />
+      )}
     </View >
   );
 }

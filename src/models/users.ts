@@ -1,6 +1,6 @@
-enum UserRole {
-  student,
-  teacher,
+export enum UserRole {
+  student = 'student',
+  teacher = 'teacher',
 }
 
 export interface IUser {
@@ -9,7 +9,7 @@ export interface IUser {
   username: string,
   fullName: string,
   email: string,
-  birthday: Date,
+  birthday: `${string}-${string}-${string}`,
   createdAt: Date,
   updatedAt: Date
 }

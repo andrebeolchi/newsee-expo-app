@@ -20,7 +20,7 @@ export const useCreatePost = ({
   onError
 }: {
   onSuccess?: (data: IPost) => void;
-  onError?: (error: any) => void;
+  onError?: (error: unknown) => void;
 }) => useMutation({
   mutationFn: createPost,
   onSuccess: (data) => {
@@ -34,9 +34,7 @@ export const useCreatePost = ({
     
     onSuccess?.(data);
   },
-  onError: (error) => {
-    onError?.(error);
-  },
+  onError
 })
 
 export const useUpdatePost = ({
@@ -44,7 +42,7 @@ export const useUpdatePost = ({
   onError
 }: {
   onSuccess?: (data: IPost) => void;
-  onError?: (error: any) => void;
+  onError?: (error: unknown) => void;
 }) => useMutation({
   mutationFn: updatePost,
   onSuccess: (data) => {
@@ -58,7 +56,5 @@ export const useUpdatePost = ({
 
     onSuccess?.(data);
   },
-  onError: (error) => {
-    onError?.(error);
-  },
+  onError
 })

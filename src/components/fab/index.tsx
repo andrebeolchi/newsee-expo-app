@@ -8,17 +8,18 @@ import Animated, {
 import { Button } from '~/components/ui/button'
 
 type FabAction = {
-  icon: React.ReactNode
   onPress: () => void
+  icon?: React.ReactNode
+  children?: React.ReactNode
 }
 
-type FabProps = {
+type FabGroupProps = {
   actions: FabAction[]
   iconClosed: React.ReactNode
   iconOpened: React.ReactNode
 }
 
-export function Fab({ actions, iconClosed, iconOpened }: FabProps) {
+export function FabGroup({ actions, iconClosed, iconOpened }: FabGroupProps) {
   const [open, setOpen] = useState(false)
 
   const actionAnimations = actions.map(() => ({
@@ -86,3 +87,18 @@ export function Fab({ actions, iconClosed, iconOpened }: FabProps) {
     </View>
   )
 }
+
+export const Fab = ({
+  children,
+  onPress,
+}: FabAction) => (
+  <View className="absolute bottom-0 right-0 items-center">
+    <Button
+      className="p-9 rounded-full"
+      size="icon"
+      onPress={onPress}
+    >
+      {children}
+    </Button>
+  </View>
+)

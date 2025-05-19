@@ -44,9 +44,10 @@ Requisitos funcionais
   - [ ] Cada item terá um botão para editar e excluir o professor.
 
 - [X] Página Administrativa
-  - [X] Exibir uma lista de todas as postagens, com opções para editar e excluir cada post.
+  - [X] Exibir uma lista de todas as postagens
+  - [X] Botão para editar cada post.
+  - [ ] Botão para excluir cada post.
 
 - [X] Página de Login
   - [X] Permitir que professores e alunos façam login no sistema.
   - [X] Permitir que alunos entre de modo anônimo.
-
