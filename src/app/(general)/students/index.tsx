@@ -1,15 +1,20 @@
+import { useRouter } from 'expo-router';
 import { LucideEdit, LucideTrash } from 'lucide-react-native';
 import React from 'react';
 import { FlatList, View } from 'react-native';
+import { Fab } from '~/components/fab';
 import { Button } from '~/components/ui/button';
 import { Text } from '~/components/ui/text';
 import { iconWithClassName } from '~/lib/icons/iconWithClassName';
 import { useGetStudents } from '~/modules/users';
 
-iconWithClassName(LucideEdit);
-iconWithClassName(LucideTrash);
+[
+  LucideEdit,
+  LucideTrash,
+].forEach(iconWithClassName);
 
 export default function StudentsScreen() {
+  const router = useRouter();
   const { data, refetch, status } = useGetStudents()
 
   return (
@@ -59,6 +64,10 @@ export default function StudentsScreen() {
           </View>
         )}
       />
+
+      <Fab onPress={() => router.push('/students/new')}>
+        <LucideEdit size={24} className='text-primary-foreground' />
+      </Fab>
     </View>
   );
 }

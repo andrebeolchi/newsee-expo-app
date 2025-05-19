@@ -6,7 +6,7 @@ import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { Text } from '~/components/ui/text';
-import { useCreateTeacher } from '~/modules/users';
+import { useCreateStudent } from '~/modules/users';
 
 const InputWithLabel = ({ label, ...props }: TextInputProps & { label: string }) => {
   return (
@@ -19,7 +19,7 @@ const InputWithLabel = ({ label, ...props }: TextInputProps & { label: string })
   );
 }
 
-export default function NewTeacherScreen() {
+export default function NewStudentScreen() {
   const router = useRouter();
 
   const [name, setName] = useState<string>('');
@@ -27,13 +27,13 @@ export default function NewTeacherScreen() {
   const [username, setUsername] = useState<string>('');
   const [birthday, setBirthday] = useState<string>('');
 
-  const { mutateAsync, isPending } = useCreateTeacher({
+  const { mutateAsync, isPending } = useCreateStudent({
     onSuccess: () => {
       router.canGoBack() && router.back();
     },
   });
 
-  const handleCreateTeacher = async () => {
+  const handleCreateStudent = async () => {
     const [day, month, year] = birthday.split('/');
     try {
       await mutateAsync({
@@ -50,7 +50,7 @@ export default function NewTeacherScreen() {
   return (
     <View className='flex-1 gap-6'>
       <Text className='text-3xl font-bold'>
-        Novo professor
+        Novo aluno
       </Text>
 
       <View className='gap-3'>
@@ -71,7 +71,7 @@ export default function NewTeacherScreen() {
         <InputWithLabel
           label='Usuário'
           value={username}
-          onChangeText={(text) => setUsername(text.toLowerCase().trim() )}
+          onChangeText={(text) => setUsername(text.toLowerCase().trim())}
           autoCapitalize='none'
         />
 
@@ -98,14 +98,14 @@ export default function NewTeacherScreen() {
 
       <Button
         disabled={!name || !email || isPending}
-        onPress={() => handleCreateTeacher()}
+        onPress={() => handleCreateStudent()}
       >
         {isPending && (
           <ActivityIndicator size='small' color='#fff' />
         )}
         {!isPending && (
           <Text>
-            Criar professor
+            Criar aluno
           </Text>
         )}
       </Button>
