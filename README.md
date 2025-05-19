@@ -1,55 +1,123 @@
-Requisitos funcionais
+# Projeto Newsee Fiap Blog
 
-- [X] Pagina Principal Lista de Posts
-  - [X] Exibir uma lista de todos os posts disponíveis.
-  - [X] Cada item da lista deve mostrar o título, autor e uma breve descrição do post.
-  - [X] Incluir um campo de busca para filtrar posts por palavras-chave.
+**Índice**
 
-- [X] Página de Leitura de Post
-  - [X] Exibir o conteúdo completo de um post selecionado.
-  - [ ] Permitir comentários nos posts (opcional).
+- [Projeto Newsee Fiap Blog](#projeto-newsee-fiap-blog)
+  - [Arquitetura da Aplicação](#arquitetura-da-aplicação)
+    - [/app](#app)
+    - [/components](#components)
+    - [/interfaces](#interfaces)
+    - [/lib](#lib)
+    - [/models](#models)
+    - [/modules](#modules)
+  - [Instalação e configuração](#instalação-e-configuração)
+    - [Instalação de dependências](#instalação-de-dependências)
+    - [Configurar variáveis de ambiente](#configurar-variáveis-de-ambiente)
+    - [Build do projeto](#build-do-projeto)
+    - [Inicialização do projeto](#inicialização-do-projeto)
+  - [Tecnologias utilizadas](#tecnologias-utilizadas)
+    - [Framework](#framework)
+    - [Requests](#requests)
+    - [Persistência](#persistência)
+    - [API](#api)
+    - [UI](#ui)
+  - [Autores](#autores)
 
-- [X] Página de Criação de Post
-  - [X] Formulário para que **professores** criar um novo post.
-  - [X] Campos obrigatórios: título, conteúdo e autor.
-  - [X] Botão para enviar o post ao servidor.
+## Arquitetura da Aplicação
 
-- [X] Página de Edição de Post
-  - [X] Formulário para que **professores** possam editar postagens existentes.
-  - [X] Carregar os dados atuais do post para edição.
-  - [X] Botão para salvar as alterações.
+### /app
+Este diretório contém a aplicação React Native, que é responsável por renderizar o frontend da aplicação.
 
-- [X] Página para Criação de professores
-  - [X] Formulário para que **professores** possam cadastrar outros professores.
-  - [X] Botão para enviar o post ao servidor.
+- **(auth)** - contém as rotas de autenticação
+- **(general)** - contém as rotas gerais (após autenticação)
 
-- [X] Página de Edição de professores
-  - [X] Formulário para que professores possam editar docentes já cadastrados.
-  - [X] Botão para salvar as alterações.
+### /components
+Este diretório contém os componentes reutilizáveis da aplicação.
 
-- [X] Página de Listagem de professores
-  - [X] Exibir uma lista de todos os professores cadastrados.
-  - [X] Cada item terá um botão para editar o professor.
-  - [X] Cada item terá um botão para excluir o professor.
+- **ui** - contém os componentes de interface (gerados utilizando React Native Reusables)
 
-- [X] Página para Criação de alunos
-  - [X] Formulário para que **professores** possam cadastrar outros alunos.
-  - [X] Botão para enviar o post ao servidor.
+### /interfaces
+Este diretório é responsável por realizar a comunicação do frontend com ferramentas externas, por enquanto, apenas com a nossa API.
 
-- [X] Página de Edição de alunos
-  - [X] Formulário para que alunos possam editar docentes já cadastrados.
-  - [X] Botão para salvar as alterações.
+- **index** - configuração do axios
+- **auth** - funções de autenticação
+- **posts** - funções de manipulação de posts
+- **users** - funções de manipulação de usuários
 
-- [X] Página de Listagem de alunos
-  - [X] Exibir uma lista de todos os alunos cadastrados.
-  - [X] Cada item terá um botão para editar o aluno.
-  - [X] Cada item terá um botão para excluir o aluno.
+### /lib
+Este diretório contém funções utilitárias que poderiam ser reutilizadas em outros projetos.
 
-- [X] Página Administrativa
-  - [X] Exibir uma lista de todas as postagens
-  - [X] Botão para editar cada post.
-  - [X] Botão para excluir cada post.
+### /models
+Este diretório contém os modelos de dados utilizados na aplicação.
 
-- [X] Página de Login
-  - [X] Permitir que professores e alunos façam login no sistema.
-  - [X] Permitir que alunos entre de modo anônimo.
+- **users** - modelo de dados de usuários
+- **posts** - modelo de dados de posts
+
+### /modules
+Este diretório contém os módulos da aplicação, que são responsáveis por realizar a lógica de negócio.
+
+- **auth** - funções de autenticação (login, logout)
+- **posts** - funções de manipulação de posts
+- **users** - funções de manipulação de usuários
+
+## Instalação e configuração
+
+### Instalação de dependências
+
+```bash
+yarn
+```
+
+### Configurar variáveis de ambiente
+
+Seguir exemplo demonstrado em `.env.example`, criando um arquivo `.env` na raiz do projeto
+
+### Build do projeto
+
+Como estamos utilizando algumas bibliotecas que utilizam dependências nativas, precisamos fazer o build do projeto.
+
+Caso esteja utilizando um **emulador Android**, execute o seguinte comando:
+```
+yarn android
+```
+
+Caso esteja utilizando um **emulador iOS**, execute o seguinte comando:
+
+```bash
+yarn ios
+```
+
+### Inicialização do projeto
+
+Para inicializar o projeto, execute o seguinte comando:
+
+```bash
+  yarn dev
+```
+
+Após isso, aperte `a` para abrir o **emulador Android** ou `i` para abrir o **emulador iOS**.
+
+## Tecnologias utilizadas
+
+### Framework
+Para o desenvolvimento do frontend, utilizamos o [Expo](https://expo.dev/), que é um framework para desenvolvimento de aplicações [React Native](https://reactnative.dev/).
+
+### Requests
+Para executar as requisições HTTP, utilizamos o [React Query](https://react-query.tanstack.com/) e o [Axios](https://axios-http.com/), que são bibliotecas para gerenciamento de estado e requisições HTTP, respectivamente.
+
+### Persistência
+Para persistir os dados no dispositivo, utilizamos o [React Native MMKV](https://github.com/mrousavy/react-native-mmkv) que é uma biblioteca de armazenamento local para React Native, que é muito mais rápida e eficiente do que o AsyncStorage.
+
+Ela também possui suporte ao React Query, o que facilita a integração com o gerenciamento de estado.
+
+### API
+A API utilizada utilizamos a [Newsee Fastify API](https://github.com/andrebeolchi/newsee-fastify-api), que é responsável por fornecer os dados para o frontend.
+
+### UI
+Para a estilização do frontend, utilizamos [NativeWind](https://www.nativewind.dev/) e [React Native Reusables](https://rnr-docs.vercel.app/getting-started/introduction/), uma reprodução de shadcn/ui para react native.
+
+## Autores
+
+<img src="https://avatars.githubusercontent.com/u/61586777" width="16" height="16"> [André Beolchi](https://github.com/andrebeolchi) (RM 359648)
+<br><img src="https://avatars.githubusercontent.com/u/34667580" width="16" height="16"> [Fellipe Corominas](https://github.com/LeFelps) (RM 359677)
+

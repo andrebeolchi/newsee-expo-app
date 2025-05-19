@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useMMKVObject } from 'react-native-mmkv'
 
 import { setAuthorizationHeader } from '~/interfaces/sdk'
-import LoginScreen from './(anon)/login'
+import LoginScreen from './(auth)/login'
 
 export default function GeneralLayout() {
   const [user] = useMMKVObject('user')
