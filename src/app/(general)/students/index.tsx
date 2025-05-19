@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { LucideEdit, LucideTrash } from 'lucide-react-native';
 import React from 'react';
 import { FlatList, View } from 'react-native';
@@ -50,9 +50,11 @@ export default function StudentsScreen() {
                 <LucideTrash size={16} className='text-destructive' />
               </Button>
 
-              <Button size='icon' variant='outline'>
-                <LucideEdit size={16} />
-              </Button>
+              <Link asChild href={`/students/${item.id}/edit`}>
+                <Button size='icon' variant='outline'>
+                  <LucideEdit size={16} />
+                </Button>
+              </Link>
             </View>
           </View>
         )}

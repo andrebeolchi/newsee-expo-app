@@ -76,7 +76,7 @@ export default function PostsScreen() {
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <Pressable
-            onPress={() => router.navigate(`/posts/${item.id}`)}
+            onPress={() => router.push(`/posts/${item.id}`)}
             className='group/card'
           >
             <Card className='group-active/card:bg-muted'>

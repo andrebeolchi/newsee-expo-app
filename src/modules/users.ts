@@ -1,7 +1,50 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "~/components/query-provider";
-import { createStudent, createTeacher, getUsers } from "~/interfaces/sdk/users";
+import { createStudent, createTeacher, deleteUser, getUser, getUsers, updateUser } from "~/interfaces/sdk/users";
 import { IUser } from "~/models/users";
+
+// -- User
+
+export const useGetUser = (id: string) => useQuery({
+  queryKey: ['users', id],
+  queryFn: () => getUser({ id }),
+})
+
+export const useDeleteUser = ({
+  onSuccess,
+  onError
+}: {
+  onSuccess?: (data: IUser) => void;
+  onError?: (error: unknown) => void;
+}) => useMutation({
+  mutationFn: (id: string) => deleteUser({ id }),
+  onSuccess: (data) => {
+    queryClient.setQueryData(['users', data.id], data);
+
+    if (data.role === 'student') {
+      queryClient.setQueryData(['students'], (oldData?: IUser[]) => {
+        if (!oldData) return [data];
+        return oldData.filter((user) => user.id !== data.id);
+      })
+    }
+
+    if (data.role === 'teacher') {
+      queryClient.setQueryData(['teachers'], (oldData?: IUser[]) => {
+        if (!oldData) return [data];
+        return oldData.filter((user) => user.id !== data.id);
+      })
+    }
+
+    queryClient.invalidateQueries({ queryKey: ['users'] });
+    queryClient.invalidateQueries({ queryKey: ['students'] });
+    queryClient.invalidateQueries({ queryKey: ['teachers'] });
+
+    onSuccess?.(data);
+  },
+  onError
+})
+
+// -- Student
 
 export const useGetStudents = () => useQuery({
   queryKey: ['students'],
@@ -17,7 +60,7 @@ export const useCreateStudent = ({
 }) => useMutation({
   mutationFn: createStudent,
   onSuccess: (data) => {
-    queryClient.setQueryData(['students', data.id], data);
+    queryClient.setQueryData(['users', data.id], data);
     queryClient.setQueryData(['students'], (oldData?: IUser[]) => {
       if (!oldData) return [data];
       return [...oldData, data];
@@ -30,6 +73,29 @@ export const useCreateStudent = ({
   onError
 })
 
+export const useUpdateStudent = ({
+  onSuccess,
+  onError
+}: {
+  onSuccess?: (data: IUser) => void;
+  onError?: (error: unknown) => void;
+}) => useMutation({
+  mutationFn: updateUser,
+  onSuccess: (data) => {
+    queryClient.setQueryData(['users', data.id], data);
+    queryClient.setQueryData(['students'], (oldData?: IUser[]) => {
+      if (!oldData) return [data];
+      return [...oldData, data];
+    })
+
+    queryClient.invalidateQueries({ queryKey: ['students'] });
+
+    onSuccess?.(data);
+  },
+  onError
+})
+
+// -- Teacher
 
 export const useGetTeachers = () => useQuery({
   queryKey: ['teachers'],
@@ -45,7 +111,29 @@ export const useCreateTeacher = ({
 }) => useMutation({
   mutationFn: createTeacher,
   onSuccess: (data) => {
-    queryClient.setQueryData(['teachers', data.id], data);
+    queryClient.setQueryData(['users', data.id], data);
+    queryClient.setQueryData(['teachers'], (oldData?: IUser[]) => {
+      if (!oldData) return [data];
+      return [...oldData, data];
+    })
+
+    queryClient.invalidateQueries({ queryKey: ['teachers'] });
+
+    onSuccess?.(data);
+  },
+  onError
+})
+
+export const useUpdateTeacher = ({
+  onSuccess,
+  onError
+}: {
+  onSuccess?: (data: IUser) => void;
+  onError?: (error: unknown) => void;
+}) => useMutation({
+  mutationFn: updateUser,
+  onSuccess: (data) => {
+    queryClient.setQueryData(['users', data.id], data);
     queryClient.setQueryData(['teachers'], (oldData?: IUser[]) => {
       if (!oldData) return [data];
       return [...oldData, data];

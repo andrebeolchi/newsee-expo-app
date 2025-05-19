@@ -9,7 +9,7 @@ export interface IUser {
   username: string,
   fullName: string,
   email: string,
-  birthday: `${string}-${string}-${string}`,
+  birthday: string,
   createdAt: Date,
   updatedAt: Date
 }

@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { ActivityIndicator, TextInputProps, View } from 'react-native';
@@ -34,10 +35,9 @@ export default function NewStudentScreen() {
   });
 
   const handleCreateStudent = async () => {
-    const [day, month, year] = birthday.split('/');
     try {
       await mutateAsync({
-        birthday: `${year}-${month}-${day}`,
+        birthday: dayjs(birthday, 'DD/MM/YYYY').format('YYYY-MM-DD'),
         email,
         fullName: name,
         username,

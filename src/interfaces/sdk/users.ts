@@ -13,6 +13,16 @@ export const getUsers = async ({ role }: IGetUsersPayload = {}): Promise<IGetUse
   return data;
 }
 
+// -- Get user
+export type IGetUserPayload = Pick<IUser, "id">
+export type IGetUserResponse = IUser;
+
+export const getUser = async ({ id }: IGetUserPayload): Promise<IGetUserResponse> => {
+  const { data } = await fetch.get(`/users/${id}`);
+
+  return data;
+}
+
 // -- Create user
 export type ICreateUserPayload = Pick<IUser, "email" | "fullName" | "birthday" | "username" | "role">
 export type ICreateUserResponse = IUser;
