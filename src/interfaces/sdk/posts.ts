@@ -56,3 +56,14 @@ export const updatePost = async ({ id, title, content }: IUpdatePostPayload): Pr
 
   return data;
 }
+
+// -- Delete post
+
+export type IDeletePostPayload = Pick<IPost, "id">;
+export type IDeletePostResponse = IPost;
+
+export const deletePost = async ({ id }: IDeletePostPayload): Promise<IDeletePostResponse> => {
+  const { data } = await fetch.delete(`/posts/${id}`);
+
+  return data;
+}

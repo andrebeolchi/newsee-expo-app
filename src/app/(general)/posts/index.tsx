@@ -5,14 +5,16 @@ import React, { useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { useMMKVObject } from 'react-native-mmkv';
 import { FabGroup } from '~/components/fab';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '~/components/ui/alert-dialog';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
 import { Input } from '~/components/ui/input';
 import { Text } from '~/components/ui/text';
 import { iconWithClassName } from '~/lib/icons/iconWithClassName';
 import useDebounce from '~/lib/use-debounce';
+import { IPost } from '~/models/posts';
 import { IAuthUser } from '~/models/users';
-import { useGetPosts } from '~/modules/posts';
+import { useDeletePost, useGetPosts } from '~/modules/posts';
 
 [
   LucideShieldUser,
@@ -23,6 +25,50 @@ import { useGetPosts } from '~/modules/posts';
   LucideSearchX,
   LucideSearch
 ].forEach(iconWithClassName)
+
+const DeletePostDialog = ({ data }: { data: IPost }) => {
+  const { mutateAsync } = useDeletePost()
+
+  const handleDelete = async () => {
+    try {
+      await mutateAsync(data.id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant='outline' className='flex-row gap-3'>
+          <Text className='text-destructive'>
+            Remover
+          </Text>
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>
+            Excluir postagem
+          </AlertDialogTitle>
+          <AlertDialogDescription>
+            <Text className='text-muted-foreground'>
+              Você tem certeza que deseja excluir a postagem <Text className='font-medium'>{data.title}</Text> feito por <Text className='font-medium'>{data.author.fullName}</Text> em <Text className='font-medium'>{dayjs(data.createdAt).format('L')}</Text>?
+            </Text>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>
+            <Text>Cancelar</Text>
+          </AlertDialogCancel>
+          <AlertDialogAction onPress={() => handleDelete()}>
+            <Text>Sim! Excluir postagem</Text>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog >
+  )
+}
 
 export default function PostsScreen() {
   const router = useRouter();
@@ -104,17 +150,7 @@ export default function PostsScreen() {
 
                   {user?.role === 'teacher' && (
                     <View className='flex-row items-center gap-3'>
-                      <Link
-                        className='flex-1'
-                        href={`/posts/${item.id}/edit`}
-                        asChild
-                      >
-                        <Button variant='outline' className='flex-row gap-3'>
-                          <Text className='text-destructive'>
-                            Remover
-                          </Text>
-                        </Button>
-                      </Link>
+                      <DeletePostDialog data={item} />
 
                       <Link
                         href={`/posts/${item.id}/edit`}

@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "~/components/query-provider";
 
-import { createPost, getPostById, getPosts, IGetPostsPayload, updatePost } from "~/interfaces/sdk/posts";
+import { createPost, deletePost, getPostById, getPosts, IGetPostsPayload, updatePost } from "~/interfaces/sdk/posts";
 import { IPost } from "~/models/posts";
 
 export const useGetPosts = (payload: IGetPostsPayload = {}) => useQuery({
@@ -31,7 +31,7 @@ export const useCreatePost = ({
     })
 
     queryClient.invalidateQueries({ queryKey: ["posts"] });
-    
+
     onSuccess?.(data);
   },
   onError
@@ -50,6 +50,28 @@ export const useUpdatePost = ({
     queryClient.setQueryData(["posts"], (oldData?: IPost[]) => {
       if (!oldData) return [data];
       return oldData.map((post) => post.id === data.id ? data : post);
+    })
+
+    queryClient.invalidateQueries({ queryKey: ["posts"] });
+
+    onSuccess?.(data);
+  },
+  onError
+})
+
+export const useDeletePost = ({
+  onSuccess,
+  onError
+}: {
+  onSuccess?: (data: IPost) => void;
+  onError?: (error: unknown) => void;
+} = {}) => useMutation({
+  mutationFn: (id: string) => deletePost({ id }),
+  onSuccess: (data) => {
+    queryClient.removeQueries({ queryKey: ["posts", data.id] });
+    queryClient.setQueryData(["posts"], (oldData?: IPost[]) => {
+      if (!oldData) return [data];
+      return oldData.filter((post) => post.id !== data.id);
     })
 
     queryClient.invalidateQueries({ queryKey: ["posts"] });
